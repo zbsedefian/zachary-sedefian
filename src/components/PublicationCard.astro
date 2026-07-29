@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Tag from "./Tag.astro";
+import {
+	PUBLICATION_STATUS_LABELS,
+	PUBLICATION_TYPE_LABELS,
+} from "../utils/labels";
+
+interface Props {
+	entry: CollectionEntry<"publications">;
+}
+
+const { entry } = Astro.props;
+const { title, journal, venue, year, status, type, tags } = entry.data;
+---
+
+<article
+	class="pub-card"
+	data-year={year}
+	data-status={status}
+	data-type={type}
+	data-tags={tags.join(",")}
+>
+	<p class="pub-card__meta">
+		{PUBLICATION_TYPE_LABELS[type]} &middot; {year} &middot;
+		<span class={`status status--${status}`}>{PUBLICATION_STATUS_LABELS[status]}</span>
+	</p>
+	<h3 class="pub-card__title">
+		<a href={`/research/${entry.id}/`}>{title}</a>
+	</h3>
+	{(journal || venue) && <p class="pub-card__venue">{journal ?? venue}</p>}
+	{
+		tags.length > 0 && (
+			<ul class="pub-card__tags">
+				{tags.map((tag) => (
+					<li>
+						<Tag label={tag} />
+					</li>
+				))}
+			</ul>
+		)
+	}
+</article>
+
+<style>
+	.pub-card {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.pub-card__meta {
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		margin: 0 0 0.3em;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	}
+
+	.status--forthcoming,
+	.status--in-preparation,
+	.status--under-review {
+		color: var(--color-accent);
+	}
+
+	.pub-card__title {
+		margin: 0 0 0.3em;
+		font-size: 1.15rem;
+	}
+
+	.pub-card__title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.pub-card__title a:hover {
+		color: var(--color-accent);
+	}
+
+	.pub-card__venue {
+		font-style: italic;
+		color: var(--color-text-muted);
+		margin: 0 0 0.6em;
+	}
+
+	.pub-card__tags {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		padding: 0;
+		margin: 0.4em 0 0;
+	}
+</style>

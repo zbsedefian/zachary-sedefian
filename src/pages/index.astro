@@ -1,6 +1,13 @@
 ---
+import { getCollection } from "astro:content";
+import Button from "../components/Button.astro";
+import PublicationCard from "../components/PublicationCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { RESEARCH_AREAS, SITE } from "../data/site";
+
+const publications = await getCollection("publications");
+publications.sort((a, b) => b.data.year - a.data.year);
+const recentPublications = publications.slice(0, 3);
 ---
 
 <BaseLayout title={SITE.title}>
@@ -15,8 +22,8 @@ import { RESEARCH_AREAS, SITE } from "../data/site";
 			teach POLS 1002: Introduction to Global Politics.
 		</p>
 		<div class="hero__actions">
-			<a class="button" href="/cv/">Download CV</a>
-			<a class="button button--ghost" href="/contact/">Get in touch</a>
+			<Button href="/cv/">Download CV</Button>
+			<Button href="/contact/" variant="ghost">Get in touch</Button>
 		</div>
 	</section>
 
@@ -29,10 +36,10 @@ import { RESEARCH_AREAS, SITE } from "../data/site";
 
 	<section class="container section">
 		<h2>Recent Publications</h2>
-		<p class="prose placeholder-note">
-			Publications will appear here automatically once added to the research
-			collection.
-		</p>
+		<div class="prose">
+			{recentPublications.map((entry) => <PublicationCard entry={entry} />)}
+		</div>
+		<a class="section__more" href="/research/">View all research &rarr;</a>
 	</section>
 
 	<section class="container section">
@@ -76,33 +83,6 @@ import { RESEARCH_AREAS, SITE } from "../data/site";
 		margin-top: 1.5rem;
 	}
 
-	.button {
-		display: inline-block;
-		padding: 0.6em 1.3em;
-		border-radius: var(--radius);
-		background: var(--color-accent);
-		color: #fff;
-		text-decoration: none;
-		font-size: 0.95rem;
-		border: 1px solid var(--color-accent);
-	}
-
-	.button:hover {
-		background: var(--color-accent-hover);
-		border-color: var(--color-accent-hover);
-		color: #fff;
-	}
-
-	.button--ghost {
-		background: transparent;
-		color: var(--color-accent);
-	}
-
-	.button--ghost:hover {
-		background: var(--color-bg-alt);
-		color: var(--color-accent-hover);
-	}
-
 	.section {
 		padding-block: 1.75rem;
 		border-top: 1px solid var(--color-border);
@@ -128,5 +108,11 @@ import { RESEARCH_AREAS, SITE } from "../data/site";
 	.placeholder-note {
 		color: var(--color-text-muted);
 		font-style: italic;
+	}
+
+	.section__more {
+		display: inline-block;
+		margin-top: 1rem;
+		font-size: 0.9rem;
 	}
 </style>

@@ -1,0 +1,44 @@
+---
+interface Props {
+	href: string;
+	variant?: "solid" | "ghost";
+}
+
+const { href, variant = "solid" } = Astro.props;
+---
+
+<a class={`button button--${variant}`} href={href}>
+	<slot />
+</a>
+
+<style>
+	.button {
+		display: inline-block;
+		padding: 0.6em 1.3em;
+		border-radius: var(--radius);
+		text-decoration: none;
+		font-size: 0.95rem;
+		border: 1px solid var(--color-accent);
+	}
+
+	.button--solid {
+		background: var(--color-accent);
+		color: #fff;
+	}
+
+	.button--solid:hover {
+		background: var(--color-accent-hover);
+		border-color: var(--color-accent-hover);
+		color: #fff;
+	}
+
+	.button--ghost {
+		background: transparent;
+		color: var(--color-accent);
+	}
+
+	.button--ghost:hover {
+		background: var(--color-bg-alt);
+		color: var(--color-accent-hover);
+	}
+</style>
