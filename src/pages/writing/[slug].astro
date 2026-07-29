@@ -1,0 +1,96 @@
+---
+import { getCollection, render } from "astro:content";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Tag from "../../components/Tag.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/dates";
+import { WRITING_CATEGORY_LABELS } from "../../utils/labels";
+
+export async function getStaticPaths() {
+	const writing = await getCollection("writing");
+	return writing.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, category, publication, date, status, excerpt, link, tags } =
+	entry.data;
+const formattedDate = formatDate(date, {
+	year: "numeric",
+	month: "long",
+	day: status === "forthcoming" ? undefined : "numeric",
+});
+---
+
+<BaseLayout title={title} description={excerpt}>
+	<article class="container writing-detail">
+		<Breadcrumbs items={[{ label: "Writing", href: "/writing/" }, { label: title }]} />
+
+		<p class="writing-detail__meta">
+			{WRITING_CATEGORY_LABELS[category]} &middot; {formattedDate}
+			{status === "forthcoming" && <span class="writing-detail__badge">Forthcoming</span>}
+		</p>
+		<h1>{title}</h1>
+		{publication && <p class="writing-detail__venue">{publication}</p>}
+
+		<div class="prose writing-detail__body">
+			<Content />
+		</div>
+
+		{
+			link && (
+				<p>
+					<a href={link}>Read the original piece</a>
+				</p>
+			)
+		}
+
+		{
+			tags.length > 0 && (
+				<ul class="writing-detail__tags">
+					{tags.map((tag) => (
+						<li>
+							<Tag label={tag} />
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</article>
+</BaseLayout>
+
+<style>
+	.writing-detail {
+		padding-block: 2.5rem 3rem;
+		max-width: var(--content-max-width);
+	}
+
+	.writing-detail__meta {
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+	}
+
+	.writing-detail__badge {
+		color: var(--color-accent);
+	}
+
+	.writing-detail__venue {
+		font-style: italic;
+		color: var(--color-text-muted);
+		margin-top: -0.6em;
+	}
+
+	.writing-detail__tags {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0;
+		margin-top: 1rem;
+	}
+</style>

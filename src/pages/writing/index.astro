@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeader from "../../components/SectionHeader.astro";
+import WritingCard from "../../components/WritingCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { WRITING_CATEGORY_LABELS } from "../../utils/labels";
+
+const writing = await getCollection("writing");
+writing.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categoryOrder = [
+	"academic",
+	"journalism",
+	"essay",
+	"book-review",
+	"interview",
+] as const;
+
+const grouped = categoryOrder
+	.map((category) => ({
+		category,
+		label: WRITING_CATEGORY_LABELS[category],
+		items: writing.filter((entry) => entry.data.category === category),
+	}))
+	.filter((group) => group.items.length > 0);
+---
+
+<BaseLayout
+	title="Writing"
+	description="Academic writing, journalism, essays, book reviews, and interviews by Zachary B. Sedefian."
+>
+	<section class="container page-header">
+		<SectionHeader
+			title="Writing"
+			description="Academic writing, journalism, essays, book reviews, and interviews."
+		/>
+	</section>
+
+	{
+		grouped.map((group) => (
+			<section class="container writing-group">
+				<h2>{group.label}</h2>
+				<div class="writing-group__list">
+					{group.items.map((entry) => (
+						<WritingCard entry={entry} />
+					))}
+				</div>
+			</section>
+		))
+	}
+</BaseLayout>
+
+<style>
+	.page-header {
+		padding-top: 2.5rem;
+	}
+
+	.writing-group {
+		padding-block: 2rem;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.writing-group__list {
+		max-width: var(--content-max-width);
+	}
+</style>

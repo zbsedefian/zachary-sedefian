@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../utils/dates";
+
+interface Props {
+	entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+const { title, publication, date, status } = entry.data;
+const formattedDate = formatDate(date, { year: "numeric", month: "long" });
+---
+
+<article class="writing-card" data-date={date.toISOString()} data-status={status}>
+	<p class="writing-card__meta">
+		{formattedDate}
+		{publication && <> &middot; {publication}</>}
+		{status === "forthcoming" && <span class="writing-card__badge">Forthcoming</span>}
+	</p>
+	<h3 class="writing-card__title">
+		<a href={`/writing/${entry.id}/`}>{title}</a>
+	</h3>
+	<p class="writing-card__excerpt prose">{entry.data.excerpt}</p>
+</article>
+
+<style>
+	.writing-card {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.writing-card__meta {
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin: 0 0 0.3em;
+	}
+
+	.writing-card__badge {
+		color: var(--color-accent);
+	}
+
+	.writing-card__title {
+		margin: 0 0 0.3em;
+		font-size: 1.15rem;
+	}
+
+	.writing-card__title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.writing-card__title a:hover {
+		color: var(--color-accent);
+	}
+
+	.writing-card__excerpt {
+		margin: 0;
+		color: var(--color-text-muted);
+	}
+</style>
