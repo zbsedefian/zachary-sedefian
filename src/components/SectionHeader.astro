@@ -2,13 +2,15 @@
 interface Props {
 	title: string;
 	description?: string;
+	level?: "h1" | "h2";
 }
 
-const { title, description } = Astro.props;
+const { title, description, level = "h1" } = Astro.props;
+const Heading = level;
 ---
 
 <div class="section-header">
-	<h2>{title}</h2>
+	<Heading>{title}</Heading>
 	{description && <p class="section-header__description prose">{description}</p>}
 </div>
 
