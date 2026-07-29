@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import portrait from "../assets/images/zachary-sedefian-portrait.jpg";
 import Button from "../components/Button.astro";
 import PublicationCard from "../components/PublicationCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -12,19 +14,29 @@ const recentPublications = publications.slice(0, 3);
 
 <BaseLayout title={SITE.title}>
 	<section class="container hero">
-		<p class="hero__eyebrow">Political Scientist &middot; Adjunct Lecturer</p>
-		<h1>Zachary B. Sedefian</h1>
-		<p class="hero__bio prose">
-			I am a political scientist and adjunct lecturer whose research examines
-			international political economy, imperialism, and the digital and gig
-			economy, with a particular focus on platform labor and China. I hold an
-			M.A. in Political Science from Brooklyn College, CUNY, and currently
-			teach POLS 1002: Introduction to Global Politics.
-		</p>
-		<div class="hero__actions">
-			<Button href="/cv/">Download CV</Button>
-			<Button href="/contact/" variant="ghost">Get in touch</Button>
+		<div class="hero__text">
+			<p class="hero__eyebrow">Political Scientist &middot; Adjunct Lecturer</p>
+			<h1>Zachary B. Sedefian</h1>
+			<p class="hero__bio prose">
+				I am a political scientist and adjunct lecturer whose research
+				examines international political economy, imperialism, and the
+				digital and gig economy, with a particular focus on platform labor and
+				China. I hold an M.A. in Political Science from Brooklyn College,
+				CUNY, and currently teach POLS 1002: Introduction to Global Politics.
+			</p>
+			<div class="hero__actions">
+				<Button href="/cv/">Download CV</Button>
+				<Button href="/contact/" variant="ghost">Get in touch</Button>
+			</div>
 		</div>
+		<Image
+			class="hero__portrait"
+			src={portrait}
+			alt="Portrait of Zachary B. Sedefian"
+			width={320}
+			height={427}
+			loading="eager"
+		/>
 	</section>
 
 	<section class="container section">
@@ -61,6 +73,22 @@ const recentPublications = publications.slice(0, 3);
 <style>
 	.hero {
 		padding-block: 3.5rem 2.5rem;
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: flex-start;
+		gap: 2.5rem;
+		flex-wrap: wrap;
+	}
+
+	.hero__text {
+		flex: 1 1 28rem;
+	}
+
+	.hero__portrait {
+		width: 12rem;
+		height: auto;
+		border-radius: var(--radius);
+		flex-shrink: 0;
 	}
 
 	.hero__eyebrow {
