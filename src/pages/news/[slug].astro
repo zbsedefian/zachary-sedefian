@@ -15,9 +15,18 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, date, summary, link } = entry.data;
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "NewsArticle",
+	headline: title,
+	author: { "@type": "Person", name: "Zachary Sedefian" },
+	datePublished: date.toISOString(),
+	description: summary,
+};
 ---
 
-<BaseLayout title={title} description={summary}>
+<BaseLayout title={title} description={summary} type="article" publishedTime={date} jsonLd={jsonLd}>
 	<article class="container news-detail">
 		<Breadcrumbs items={[{ label: "News", href: "/news/" }, { label: title }]} />
 

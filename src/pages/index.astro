@@ -19,9 +19,24 @@ const recentNews = news.slice(0, 3);
 
 const projects = await getCollection("projects");
 const featuredProjects = projects.filter((entry) => entry.data.featured);
+
+const personJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: SITE.author,
+	url: SITE.url,
+	email: `mailto:${SITE.email}`,
+	jobTitle: "Adjunct Lecturer",
+	description: SITE.description,
+	affiliation: {
+		"@type": "CollegeOrUniversity",
+		name: "Brooklyn College, CUNY",
+	},
+	knowsAbout: RESEARCH_AREAS,
+};
 ---
 
-<BaseLayout title={SITE.title}>
+<BaseLayout title={SITE.title} jsonLd={personJsonLd}>
 	<section class="container hero">
 		<div class="hero__text">
 			<p class="hero__eyebrow">Political Scientist &middot; Adjunct Lecturer</p>

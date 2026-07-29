@@ -1,16 +1,28 @@
 ---
+import { getImage } from "astro:assets";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
+import portrait from "../assets/images/zachary-sedefian-portrait.jpg";
 import { SITE } from "../data/site";
 import "../styles/global.css";
 
 interface Props {
 	title: string;
 	description?: string;
+	type?: "website" | "article";
+	publishedTime?: Date;
+	/** Arbitrary JSON-LD structured data object(s) to embed for this page. */
+	jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, type = "website", publishedTime, jsonLd } = Astro.props;
 const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
+const canonicalUrl = new URL(Astro.url.pathname, SITE.url).toString();
+
+const ogImage = await getImage({ src: portrait, width: 600, height: 800 });
+const ogImageUrl = new URL(ogImage.src, SITE.url).toString();
+
+const jsonLdEntries = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <!doctype html>
@@ -20,19 +32,30 @@ const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<link rel="canonical" href={new URL(Astro.url.pathname, SITE.url).toString()} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" type="application/rss+xml" title={`${SITE.title} — News`} href="/rss.xml" />
 		<meta name="generator" content={Astro.generator} />
 
 		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
 
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={type} />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
-		<meta property="og:url" content={new URL(Astro.url.pathname, SITE.url).toString()} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:site_name" content={SITE.title} />
+		{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
+		{
+			jsonLdEntries.map((entry) => (
+				<script type="application/ld+json" set:html={JSON.stringify(entry)} is:inline />
+			))
+		}
 	</head>
 	<body>
 		<a class="skip-link" href="#main-content">Skip to content</a>

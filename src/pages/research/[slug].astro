@@ -20,9 +20,21 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, authors, journal, venue, year, status, type, abstract, doi, pdf, citation, tags } =
 	entry.data;
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "ScholarlyArticle",
+	headline: title,
+	author: authors.map((name) => ({ "@type": "Person", name })),
+	datePublished: String(year),
+	description: abstract,
+	...(journal || venue ? { isPartOf: { "@type": "Periodical", name: journal ?? venue } } : {}),
+	...(doi ? { sameAs: `https://doi.org/${doi}` } : {}),
+	keywords: tags.join(", "),
+};
 ---
 
-<BaseLayout title={title} description={abstract}>
+<BaseLayout title={title} description={abstract} type="article" jsonLd={jsonLd}>
 	<article class="container pub-detail">
 		<Breadcrumbs
 			items={[

@@ -23,9 +23,20 @@ const formattedDate = formatDate(date, {
 	month: "long",
 	day: status === "forthcoming" ? undefined : "numeric",
 });
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: title,
+	author: { "@type": "Person", name: "Zachary Sedefian" },
+	datePublished: date.toISOString(),
+	description: excerpt,
+	...(publication ? { publisher: { "@type": "Organization", name: publication } } : {}),
+	keywords: tags.join(", "),
+};
 ---
 
-<BaseLayout title={title} description={excerpt}>
+<BaseLayout title={title} description={excerpt} type="article" publishedTime={date} jsonLd={jsonLd}>
 	<article class="container writing-detail">
 		<Breadcrumbs items={[{ label: "Writing", href: "/writing/" }, { label: title }]} />
 
