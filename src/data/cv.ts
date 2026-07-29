@@ -31,7 +31,7 @@ export interface ExperienceEntry {
 export const PROFESSIONAL_EXPERIENCE: ExperienceEntry[] = [
 	{
 		title: "Senior Software Engineer",
-		organization: "Paychex",
+		organization: "Solü Technology Partners",
 		location: "Rochester, NY",
 		years: "2023–2024",
 		bullets: [
@@ -41,7 +41,7 @@ export const PROFESSIONAL_EXPERIENCE: ExperienceEntry[] = [
 	},
 	{
 		title: "Software Engineer",
-		organization: "Ford Autonomous Vehicle",
+		organization: "Nuvalence",
 		location: "Detroit, MI",
 		years: "2020–2023",
 		bullets: [
