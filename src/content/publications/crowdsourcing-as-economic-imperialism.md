@@ -6,6 +6,7 @@ venue: "APPEAL / LPE Collective, John Jay College"
 year: 2025
 status: "published"
 abstract: "Conference presentation. Abstract available upon request."
+video: "https://www.youtube.com/watch?v=oeXeC4h7210"
 citation: 'Sedefian, Zachary (2025, November). "Crowdsourcing as Economic Imperialism." APPEAL / LPE Collective, John Jay College.'
 tags: ["crowdsourcing", "imperialism", "digital labor"]
 ---

@@ -22,15 +22,15 @@ export interface SocialLink {
 }
 
 export const SITE = {
-	title: "Zachary B. Sedefian",
+	title: "Zachary Sedefian",
 	shortTitle: "Z. Sedefian",
 	description:
-		"Zachary B. Sedefian is a political scientist and adjunct lecturer working on international political economy, imperialism, digital labor, and China.",
-	author: "Zachary B. Sedefian",
+		"Zachary Sedefian is a political scientist and adjunct lecturer working on international political economy, imperialism, digital labor, and China.",
+	author: "Zachary Sedefian",
 	email: "zbsedefian@gmail.com",
 	locale: "en-US",
 	url: "https://zacharysedefian.com",
-	copyright: `© ${new Date().getFullYear()} Zachary B. Sedefian. All rights reserved.`,
+	copyright: `© ${new Date().getFullYear()} Zachary Sedefian. All rights reserved.`,
 };
 
 export const NAV_LINKS: NavLink[] = [

@@ -24,6 +24,7 @@ const publications = defineCollection({
 		abstract: z.string(),
 		doi: z.string().optional(),
 		pdf: z.string().optional(),
+		video: z.string().url().optional(),
 		citation: z.string(),
 		tags: z.array(z.string()).default([]),
 		featured: z.boolean().default(false),

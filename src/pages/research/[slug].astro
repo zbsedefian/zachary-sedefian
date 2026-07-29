@@ -18,8 +18,21 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, authors, journal, venue, year, status, type, abstract, doi, pdf, citation, tags } =
-	entry.data;
+const {
+	title,
+	authors,
+	journal,
+	venue,
+	year,
+	status,
+	type,
+	abstract,
+	doi,
+	pdf,
+	video,
+	citation,
+	tags,
+} = entry.data;
 
 const jsonLd = {
 	"@context": "https://schema.org",
@@ -53,6 +66,7 @@ const jsonLd = {
 		<div class="pub-detail__links">
 			{doi && <a href={`https://doi.org/${doi}`}>DOI: {doi}</a>}
 			{pdf && <a href={pdf}>Download PDF</a>}
+			{video && <a href={video}>Watch Video</a>}
 		</div>
 
 		<h2>Abstract</h2>

@@ -6,6 +6,7 @@ venue: "Unequal Exchange in the 21st Century: A Conference on the Political Econ
 year: 2026
 status: "published"
 abstract: "Conference presentation. Abstract available upon request."
+video: "https://youtu.be/27ggHFo_SBg"
 citation: 'Sedefian, Zachary (2026, January). "Online Labor Platforms as Economic Imperialism: Unequal Exchange in the International Digital Economy." Unequal Exchange in the 21st Century: A Conference on the Political Economy of Imperialism, International Institute of Social History, Amsterdam.'
 tags: ["online labor platforms", "imperialism", "unequal exchange"]
 ---
