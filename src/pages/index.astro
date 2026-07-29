@@ -1,17 +1,132 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { RESEARCH_AREAS, SITE } from "../data/site";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={SITE.title}>
+	<section class="container hero">
+		<p class="hero__eyebrow">Political Scientist &middot; Adjunct Lecturer</p>
+		<h1>Zachary B. Sedefian</h1>
+		<p class="hero__bio prose">
+			I am a political scientist and adjunct lecturer whose research examines
+			international political economy, imperialism, and the digital and gig
+			economy, with a particular focus on platform labor and China. I hold an
+			M.A. in Political Science from Brooklyn College, CUNY, and currently
+			teach POLS 1002: Introduction to Global Politics.
+		</p>
+		<div class="hero__actions">
+			<a class="button" href="/cv/">Download CV</a>
+			<a class="button button--ghost" href="/contact/">Get in touch</a>
+		</div>
+	</section>
+
+	<section class="container section">
+		<h2>Research Interests</h2>
+		<ul class="tag-list">
+			{RESEARCH_AREAS.map((area) => <li class="tag">{area}</li>)}
+		</ul>
+	</section>
+
+	<section class="container section">
+		<h2>Recent Publications</h2>
+		<p class="prose placeholder-note">
+			Publications will appear here automatically once added to the research
+			collection.
+		</p>
+	</section>
+
+	<section class="container section">
+		<h2>Recent News</h2>
+		<p class="prose placeholder-note">
+			News items will appear here automatically once added to the news
+			collection.
+		</p>
+	</section>
+
+	<section class="container section">
+		<h2>Current Projects</h2>
+		<p class="prose placeholder-note">
+			Current research and writing projects will be listed here.
+		</p>
+	</section>
+</BaseLayout>
+
+<style>
+	.hero {
+		padding-block: 3.5rem 2.5rem;
+	}
+
+	.hero__eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		margin: 0 0 0.5rem;
+	}
+
+	.hero__bio {
+		font-size: 1.1rem;
+		color: var(--color-text-muted);
+	}
+
+	.hero__actions {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin-top: 1.5rem;
+	}
+
+	.button {
+		display: inline-block;
+		padding: 0.6em 1.3em;
+		border-radius: var(--radius);
+		background: var(--color-accent);
+		color: #fff;
+		text-decoration: none;
+		font-size: 0.95rem;
+		border: 1px solid var(--color-accent);
+	}
+
+	.button:hover {
+		background: var(--color-accent-hover);
+		border-color: var(--color-accent-hover);
+		color: #fff;
+	}
+
+	.button--ghost {
+		background: transparent;
+		color: var(--color-accent);
+	}
+
+	.button--ghost:hover {
+		background: var(--color-bg-alt);
+		color: var(--color-accent-hover);
+	}
+
+	.section {
+		padding-block: 1.75rem;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.tag-list {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0;
+		margin: 0;
+	}
+
+	.tag {
+		font-size: 0.85rem;
+		padding: 0.3em 0.75em;
+		border: 1px solid var(--color-border);
+		border-radius: 999px;
+		color: var(--color-text-muted);
+	}
+
+	.placeholder-note {
+		color: var(--color-text-muted);
+		font-style: italic;
+	}
+</style>
