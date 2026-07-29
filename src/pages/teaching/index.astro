@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import CourseCard from "../../components/CourseCard.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { parseSemester } from "../../utils/semester";
+
+const courses = await getCollection("courses");
+courses.sort(
+	(a, b) => parseSemester(b.data.semester) - parseSemester(a.data.semester),
+);
+---
+
+<BaseLayout
+	title="Teaching"
+	description="Courses taught by Zachary B. Sedefian."
+>
+	<section class="container page-header">
+		<SectionHeader
+			title="Teaching"
+			description="Courses taught, including semester, institution, and course description."
+		/>
+	</section>
+
+	<section class="container course-list">
+		{courses.map((entry) => <CourseCard entry={entry} />)}
+	</section>
+</BaseLayout>
+
+<style>
+	.page-header {
+		padding-top: 2.5rem;
+	}
+
+	.course-list {
+		max-width: var(--content-max-width);
+		padding-bottom: 2.5rem;
+	}
+</style>

@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from "astro:content";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const courses = await getCollection("courses");
+	return courses.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { courseNumber, title, institution, semester, role, syllabus, readings } =
+	entry.data;
+---
+
+<BaseLayout title={`${courseNumber}: ${title}`} description={entry.data.description}>
+	<article class="container course-detail">
+		<Breadcrumbs
+			items={[
+				{ label: "Teaching", href: "/teaching/" },
+				{ label: `${courseNumber}: ${title}` },
+			]}
+		/>
+
+		<p class="course-detail__meta">{semester} &middot; {institution}</p>
+		<h1>{courseNumber}: {title}</h1>
+		<p class="course-detail__role">{role}</p>
+
+		<div class="prose course-detail__body">
+			<Content />
+		</div>
+
+		{
+			syllabus && (
+				<p>
+					<a href={syllabus}>View syllabus</a>
+				</p>
+			)
+		}
+
+		{
+			readings.length > 0 && (
+				<>
+					<h2>Readings</h2>
+					<ul>
+						{readings.map((reading) => (
+							<li>{reading}</li>
+						))}
+					</ul>
+				</>
+			)
+		}
+	</article>
+</BaseLayout>
+
+<style>
+	.course-detail {
+		padding-block: 2.5rem 3rem;
+		max-width: var(--content-max-width);
+	}
+
+	.course-detail__meta {
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+	}
+
+	.course-detail__role {
+		font-style: italic;
+		color: var(--color-text-muted);
+		margin-top: -0.6em;
+	}
+</style>

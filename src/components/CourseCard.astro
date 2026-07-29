@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	entry: CollectionEntry<"courses">;
+}
+
+const { entry } = Astro.props;
+const { courseNumber, title, institution, semester, role, description } =
+	entry.data;
+---
+
+<article class="course-card">
+	<p class="course-card__meta">{semester} &middot; {institution}</p>
+	<h3 class="course-card__title">
+		<a href={`/teaching/${entry.id}/`}>{courseNumber}: {title}</a>
+	</h3>
+	<p class="course-card__role">{role}</p>
+	<p class="course-card__description prose">{description}</p>
+</article>
+
+<style>
+	.course-card {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.course-card__meta {
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin: 0 0 0.3em;
+	}
+
+	.course-card__title {
+		margin: 0 0 0.2em;
+		font-size: 1.15rem;
+	}
+
+	.course-card__title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.course-card__title a:hover {
+		color: var(--color-accent);
+	}
+
+	.course-card__role {
+		font-style: italic;
+		color: var(--color-text-muted);
+		margin: 0 0 0.5em;
+	}
+
+	.course-card__description {
+		margin: 0;
+	}
+</style>
