@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../utils/dates";
+
+interface Props {
+	entry: CollectionEntry<"news">;
+}
+
+const { entry } = Astro.props;
+const { title, date, summary } = entry.data;
+---
+
+<article class="news-card">
+	<p class="news-card__date">{formatDate(date)}</p>
+	<h3 class="news-card__title">
+		<a href={`/news/${entry.id}/`}>{title}</a>
+	</h3>
+	<p class="news-card__summary prose">{summary}</p>
+</article>
+
+<style>
+	.news-card {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.news-card__date {
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		margin: 0 0 0.3em;
+	}
+
+	.news-card__title {
+		margin: 0 0 0.3em;
+		font-size: 1.15rem;
+	}
+
+	.news-card__title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.news-card__title a:hover {
+		color: var(--color-accent);
+	}
+
+	.news-card__summary {
+		margin: 0;
+		color: var(--color-text-muted);
+	}
+</style>

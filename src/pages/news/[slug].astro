@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from "astro:content";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../utils/dates";
+
+export async function getStaticPaths() {
+	const news = await getCollection("news");
+	return news.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, date, summary, link } = entry.data;
+---
+
+<BaseLayout title={title} description={summary}>
+	<article class="container news-detail">
+		<Breadcrumbs items={[{ label: "News", href: "/news/" }, { label: title }]} />
+
+		<p class="news-detail__date">{formatDate(date)}</p>
+		<h1>{title}</h1>
+
+		<div class="prose news-detail__body">
+			<Content />
+		</div>
+
+		{
+			link && (
+				<p>
+					<a href={link}>Read more</a>
+				</p>
+			)
+		}
+	</article>
+</BaseLayout>
+
+<style>
+	.news-detail {
+		padding-block: 2.5rem 3rem;
+		max-width: var(--content-max-width);
+	}
+
+	.news-detail__date {
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+	}
+</style>

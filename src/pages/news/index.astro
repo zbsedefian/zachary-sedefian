@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import NewsCard from "../../components/NewsCard.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const news = await getCollection("news");
+news.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="News" description="News and updates from Zachary B. Sedefian.">
+	<section class="container page-header">
+		<SectionHeader title="News" description="Updates on publications, awards, and service." />
+	</section>
+
+	<section class="container news-list">
+		{news.map((entry) => <NewsCard entry={entry} />)}
+	</section>
+</BaseLayout>
+
+<style>
+	.page-header {
+		padding-top: 2.5rem;
+	}
+
+	.news-list {
+		max-width: var(--content-max-width);
+		padding-bottom: 2.5rem;
+	}
+</style>
