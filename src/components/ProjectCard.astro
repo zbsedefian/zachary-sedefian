@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	entry: CollectionEntry<"projects">;
+}
+
+const { entry } = Astro.props;
+const { title, status, description, link } = entry.data;
+---
+
+<article class="project-card">
+	<h3 class="project-card__title">
+		{link ? <a href={link}>{title}</a> : title}
+	</h3>
+	{status && <p class="project-card__status">{status}</p>}
+	<p class="project-card__description prose">{description}</p>
+</article>
+
+<style>
+	.project-card {
+		padding-block: 1.25rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.project-card__title {
+		margin: 0 0 0.3em;
+		font-size: 1.15rem;
+	}
+
+	.project-card__title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.project-card__title a:hover {
+		color: var(--color-accent);
+	}
+
+	.project-card__status {
+		font-size: 0.85rem;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--color-text-muted);
+		margin: 0 0 0.5em;
+	}
+
+	.project-card__description {
+		margin: 0;
+		color: var(--color-text-muted);
+	}
+</style>

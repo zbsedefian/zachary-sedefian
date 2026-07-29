@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import portrait from "../assets/images/zachary-sedefian-portrait.jpg";
 import Button from "../components/Button.astro";
 import NewsCard from "../components/NewsCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 import PublicationCard from "../components/PublicationCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { RESEARCH_AREAS, SITE } from "../data/site";
@@ -15,6 +16,9 @@ const recentPublications = publications.slice(0, 3);
 const news = await getCollection("news");
 news.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const recentNews = news.slice(0, 3);
+
+const projects = await getCollection("projects");
+const featuredProjects = projects.filter((entry) => entry.data.featured);
 ---
 
 <BaseLayout title={SITE.title}>
@@ -69,9 +73,10 @@ const recentNews = news.slice(0, 3);
 
 	<section class="container section">
 		<h2>Current Projects</h2>
-		<p class="prose placeholder-note">
-			Current research and writing projects will be listed here.
-		</p>
+		<div class="prose">
+			{featuredProjects.map((entry) => <ProjectCard entry={entry} />)}
+		</div>
+		<a class="section__more" href="/projects/">View all projects &rarr;</a>
 	</section>
 </BaseLayout>
 
