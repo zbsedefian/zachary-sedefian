@@ -76,17 +76,4 @@ const news = defineCollection({
 	}),
 });
 
-const projects = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
-	schema: z.object({
-		title: z.string(),
-		category: z.enum(["research", "book", "presentation", "dataset"]),
-		status: z.string().optional(),
-		date: z.coerce.date().optional(),
-		description: z.string(),
-		link: z.string().url().optional(),
-		featured: z.boolean().default(false),
-	}),
-});
-
-export const collections = { publications, writing, courses, news, projects };
+export const collections = { publications, writing, courses, news };

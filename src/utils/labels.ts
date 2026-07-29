@@ -19,10 +19,3 @@ export const WRITING_CATEGORY_LABELS: Record<string, string> = {
 	"book-review": "Book Reviews",
 	interview: "Interviews",
 };
-
-export const PROJECT_CATEGORY_LABELS: Record<string, string> = {
-	research: "Current Research",
-	book: "Book Projects",
-	presentation: "Conference Presentations",
-	dataset: "Datasets",
-};
