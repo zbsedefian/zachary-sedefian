@@ -51,20 +51,20 @@ export const SOCIAL_LINKS: SocialLink[] = [
 		href: "https://scholar.google.com/citations?user=TODO",
 		icon: "scholar",
 	},
-	{ label: "ORCID", href: "https://orcid.org/0000-0000-0000-0000", icon: "orcid" },
+	{ label: "ORCID", href: "https://orcid.org/0009-0003-0637-5938", icon: "orcid" },
 	{
 		label: "ResearchGate",
 		href: "https://www.researchgate.net/profile/Zachary-Sedefian",
 		icon: "researchgate",
 	},
-	{ label: "GitHub", href: "https://github.com/TODO", icon: "github" },
+	{ label: "GitHub", href: "https://github.com/zbsedefian", icon: "github" },
 	{
 		label: "LinkedIn",
-		href: "https://www.linkedin.com/in/TODO",
+		href: "https://www.linkedin.com/in/zachary-sedefian-7a183340a/",
 		icon: "linkedin",
 	},
 	{ label: "Bluesky", href: "https://bsky.app/profile/TODO", icon: "bluesky" },
-	{ label: "X", href: "https://x.com/TODO", icon: "x" },
+	{ label: "X", href: "https://x.com/z_sedefian", icon: "x" },
 ];
 
 export const RESEARCH_AREAS: string[] = [
