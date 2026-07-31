@@ -28,38 +28,8 @@ export interface ExperienceEntry {
 	bullets?: string[];
 }
 
-export const PROFESSIONAL_EXPERIENCE: ExperienceEntry[] = [
-	{
-		title: "Senior Software Engineer",
-		organization: "Solü Technology Partners",
-		location: "Rochester, NY",
-		years: "2023–2024",
-		bullets: [
-			"Developed and maintained large-scale data systems supporting payroll and workforce analytics",
-			"Translated complex data outputs into structured formats for internal reporting and decision-making",
-		],
-	},
-	{
-		title: "Software Engineer",
-		organization: "Nuvalence",
-		location: "Detroit, MI",
-		years: "2020–2023",
-		bullets: [
-			"Worked with large datasets and real-time systems requiring precision, documentation, and cross-team coordination",
-			"Contributed to system-level analysis and technical reporting in a high-stakes operational environment",
-		],
-	},
-	{
-		title: "Associate Software Engineer",
-		organization: "AutoMate Dealership Systems",
-		location: "Albany, NY",
-		years: "2018–2020",
-		bullets: [
-			"Supported development and maintenance of enterprise software systems",
-			"Assisted in data handling, system documentation, and structured problem-solving workflows",
-		],
-	},
-];
+export const PROFESSIONAL_EXPERIENCE_SUMMARY =
+	"Worked as a platform and software engineer at various Fortune 500 firms, building autonomous vehicle and financial software over a period of six years (2018–2024).";
 
 export const ADDITIONAL_EXPERIENCE: ExperienceEntry[] = [
 	{

@@ -7,7 +7,7 @@ import {
 	HONORS,
 	LANGUAGES,
 	PEER_REVIEW,
-	PROFESSIONAL_EXPERIENCE,
+	PROFESSIONAL_EXPERIENCE_SUMMARY,
 	SKILLS,
 } from "../data/cv";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -75,28 +75,7 @@ const CV_PDF_HREF = "/cv/zachary-sedefian-cv.pdf";
 
 	<section class="container cv-section">
 		<h2>Professional Experience</h2>
-		<ul class="cv-list">
-			{
-				PROFESSIONAL_EXPERIENCE.map((entry) => (
-					<li class="cv-list__item">
-						<div class="cv-list__row">
-							<span class="cv-list__title">
-								{entry.title}, {entry.organization}
-								{entry.location && `, ${entry.location}`}
-							</span>
-							<span class="cv-list__meta">{entry.years}</span>
-						</div>
-						{entry.bullets && (
-							<ul class="cv-bullets">
-								{entry.bullets.map((bullet) => (
-									<li>{bullet}</li>
-								))}
-							</ul>
-						)}
-					</li>
-				))
-			}
-		</ul>
+		<p class="prose">{PROFESSIONAL_EXPERIENCE_SUMMARY}</p>
 	</section>
 
 	<section class="container cv-section">
