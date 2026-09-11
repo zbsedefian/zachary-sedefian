@@ -67,7 +67,8 @@ export const ADDITIONAL_EXPERIENCE: ExperienceEntry[] = [
 	},
 ];
 
-export const PEER_REVIEW: string[] = [
+export const EDITORIAL_AND_PEER_REVIEW: string[] = [
+	"Associate Editor, Journal of Labor and Society (2026–present).",
 	"Peer Reviewer, Journal of Labor and Society (2026). Completed two anonymous peer reviews for manuscripts submitted to the journal.",
 ];
 

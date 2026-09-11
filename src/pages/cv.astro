@@ -3,10 +3,10 @@ import Button from "../components/Button.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import {
 	ADDITIONAL_EXPERIENCE,
+	EDITORIAL_AND_PEER_REVIEW,
 	EDUCATION,
 	HONORS,
 	LANGUAGES,
-	PEER_REVIEW,
 	PROFESSIONAL_EXPERIENCE_SUMMARY,
 	SKILLS,
 } from "../data/cv";
@@ -67,9 +67,9 @@ const CV_PDF_HREF = "/cv/zachary-sedefian-cv.pdf";
 	</section>
 
 	<section class="container cv-section">
-		<h2>Peer Review Activities</h2>
+		<h2>Editorial &amp; Peer Review Service</h2>
 		<ul class="cv-bullets">
-			{PEER_REVIEW.map((item) => <li>{item}</li>)}
+			{EDITORIAL_AND_PEER_REVIEW.map((item) => <li>{item}</li>)}
 		</ul>
 	</section>
 
