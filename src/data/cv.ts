@@ -67,6 +67,16 @@ export const ADDITIONAL_EXPERIENCE: ExperienceEntry[] = [
 	},
 ];
 
+export interface AffiliationEntry {
+	role: string;
+	organization: string;
+	years: string;
+}
+
+export const JOURNALISTIC_AFFILIATIONS: AffiliationEntry[] = [
+	{ role: "Regular Contributor", organization: "CovertAction Magazine", years: "2026–present" },
+];
+
 export const EDITORIAL_AND_PEER_REVIEW: string[] = [
 	"Associate Editor, Journal of Labor and Society (2026–present).",
 	"Peer Reviewer, Journal of Labor and Society (2026). Completed two anonymous peer reviews for manuscripts submitted to the journal.",

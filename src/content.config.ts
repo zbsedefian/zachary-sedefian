@@ -6,6 +6,8 @@ const publications = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		authors: z.array(z.string()).default(["Zachary Sedefian"]),
+		orcid: z.string().optional(),
+		affiliation: z.string().optional(),
 		type: z.enum([
 			"peer-reviewed-article",
 			"working-paper",

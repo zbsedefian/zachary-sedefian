@@ -21,6 +21,8 @@ const { Content } = await render(entry);
 const {
 	title,
 	authors,
+	orcid,
+	affiliation,
 	journal,
 	venue,
 	year,
@@ -38,7 +40,14 @@ const jsonLd = {
 	"@context": "https://schema.org",
 	"@type": "ScholarlyArticle",
 	headline: title,
-	author: authors.map((name) => ({ "@type": "Person", name })),
+	author: authors.map((name, index) => ({
+		"@type": "Person",
+		name,
+		...(index === 0 && orcid ? { identifier: `https://orcid.org/${orcid}` } : {}),
+		...(index === 0 && affiliation
+			? { affiliation: { "@type": "Organization", name: affiliation } }
+			: {}),
+	})),
 	datePublished: String(year),
 	description: abstract,
 	...(journal || venue ? { isPartOf: { "@type": "Periodical", name: journal ?? venue } } : {}),
@@ -60,7 +69,18 @@ const jsonLd = {
 			{PUBLICATION_TYPE_LABELS[type]} &middot; {year} &middot; {PUBLICATION_STATUS_LABELS[status]}
 		</p>
 		<h1>{title}</h1>
-		<p class="pub-detail__authors">{authors.join(", ")}</p>
+		<p class="pub-detail__authors">
+			{authors.join(", ")}
+			{orcid && (
+				<>
+					{" "}
+					<a class="pub-detail__orcid" href={`https://orcid.org/${orcid}`}>
+						ORCID {orcid}
+					</a>
+				</>
+			)}
+		</p>
+		{affiliation && <p class="pub-detail__affiliation">{affiliation}</p>}
 		{(journal || venue) && <p class="pub-detail__venue">{journal ?? venue}</p>}
 
 		<div class="pub-detail__links">
@@ -107,6 +127,16 @@ const jsonLd = {
 	}
 
 	.pub-detail__authors {
+		color: var(--color-text-muted);
+		margin-top: -0.6em;
+	}
+
+	.pub-detail__orcid {
+		font-size: 0.85rem;
+		white-space: nowrap;
+	}
+
+	.pub-detail__affiliation {
 		color: var(--color-text-muted);
 		margin-top: -0.6em;
 	}
