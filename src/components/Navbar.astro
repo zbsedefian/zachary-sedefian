@@ -5,6 +5,7 @@ const currentPath = Astro.url.pathname;
 
 function isActive(href: string): boolean {
 	if (href === "/") return currentPath === "/";
+	if (!href.endsWith("/")) return false;
 	return currentPath.startsWith(href);
 }
 ---

@@ -1,20 +1,17 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import portrait from "../assets/images/zachary-sedefian-portrait.jpg";
 import Button from "../components/Button.astro";
-import NewsCard from "../components/NewsCard.astro";
-import PublicationCard from "../components/PublicationCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { RESEARCH_AREAS, SITE } from "../data/site";
-
-const publications = await getCollection("publications");
-publications.sort((a, b) => b.data.year - a.data.year);
-const recentPublications = publications.slice(0, 3);
+import { CV_PDF_HREF, RESEARCH_AREAS, SCHOLAR_URL, SITE } from "../data/site";
+import { formatDate } from "../utils/dates";
 
 const news = await getCollection("news");
 news.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const recentNews = news.slice(0, 3);
+const newsItems = await Promise.all(
+	news.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
 
 const personJsonLd = {
 	"@context": "https://schema.org",
@@ -22,7 +19,7 @@ const personJsonLd = {
 	name: SITE.author,
 	url: SITE.url,
 	email: `mailto:${SITE.email}`,
-	jobTitle: "Adjunct Lecturer",
+	jobTitle: "Lecturer in Political Science",
 	description: SITE.description,
 	affiliation: {
 		"@type": "CollegeOrUniversity",
@@ -35,18 +32,23 @@ const personJsonLd = {
 <BaseLayout title={SITE.title} jsonLd={personJsonLd}>
 	<section class="container hero">
 		<div class="hero__text">
-			<p class="hero__eyebrow">Political Scientist &middot; Adjunct Lecturer</p>
+			<p class="hero__eyebrow">Political Economist &middot; Lecturer</p>
 			<h1>Zachary Sedefian</h1>
 			<p class="hero__bio prose">
-				I am a political scientist and adjunct lecturer whose research
-				examines international political economy, imperialism, and the
-				digital and gig economy, with a particular focus on platform labor and
-				China. I hold an M.A. in Political Science from Brooklyn College,
-				CUNY, and currently teach POLS 1002: Introduction to Global Politics.
+				Zachary Sedefian is a lecturer in Political Science at Brooklyn
+				College, CUNY, where he earned his MA. He holds BAs in Computer
+				Science, Linguistics, and Anthropology from the University at Albany,
+				SUNY. He is Associate Editor of the <em>Journal of Labor and
+				Society</em> and has published research in international and
+				comparative political economy with a focus on the interplay between
+				imperialism, technology, war, and platform labor. He also writes for <em>CovertAction
+				Magazine</em>. Previously, he worked as a software
+				engineer on platform systems, autonomous vehicles, and automation, and
+				as an English teacher in China.
 			</p>
 			<div class="hero__actions">
-				<Button href="/cv/">Download CV</Button>
-				<Button href="/contact/" variant="ghost">Get in touch</Button>
+				<Button href={CV_PDF_HREF}>CV</Button>
+				<Button href={SCHOLAR_URL} variant="ghost">Google Scholar</Button>
 			</div>
 		</div>
 		<Image
@@ -60,26 +62,21 @@ const personJsonLd = {
 	</section>
 
 	<section class="container section">
-		<h2>Research Interests</h2>
-		<ul class="tag-list">
-			{RESEARCH_AREAS.map((area) => <li class="tag">{area}</li>)}
+		<h2>News</h2>
+		<ul class="news">
+			{
+				newsItems.map(({ entry, Content }) => (
+					<li class="news__item">
+						<time class="news__date" datetime={entry.data.date.toISOString().slice(0, 10)}>
+							{formatDate(entry.data.date, { year: "numeric", month: "short" })}
+						</time>
+						<div class="news__text">
+							<Content />
+						</div>
+					</li>
+				))
+			}
 		</ul>
-	</section>
-
-	<section class="container section">
-		<h2>Recent Publications</h2>
-		<div class="prose">
-			{recentPublications.map((entry) => <PublicationCard entry={entry} />)}
-		</div>
-		<a class="section__more" href="/research/">View all research &rarr;</a>
-	</section>
-
-	<section class="container section">
-		<h2>Recent News</h2>
-		<div class="prose">
-			{recentNews.map((entry) => <NewsCard entry={entry} />)}
-		</div>
-		<a class="section__more" href="/news/">View all news &rarr;</a>
 	</section>
 </BaseLayout>
 
@@ -129,31 +126,27 @@ const personJsonLd = {
 		border-top: 1px solid var(--color-border);
 	}
 
-	.tag-list {
+	.news {
 		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		padding: 0;
 		margin: 0;
+		padding: 0;
+		max-width: var(--content-max-width);
 	}
 
-	.tag {
-		font-size: 0.85rem;
-		padding: 0.3em 0.75em;
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
+	.news__item {
+		display: flex;
+		gap: 1.25rem;
+		padding-block: 0.5rem;
+	}
+
+	.news__date {
+		flex: 0 0 5.5rem;
 		color: var(--color-text-muted);
-	}
-
-	.placeholder-note {
-		color: var(--color-text-muted);
-		font-style: italic;
-	}
-
-	.section__more {
-		display: inline-block;
-		margin-top: 1rem;
 		font-size: 0.9rem;
+		padding-top: 0.1em;
+	}
+
+	.news__text :global(p) {
+		margin: 0;
 	}
 </style>

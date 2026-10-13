@@ -13,7 +13,6 @@ enhancement (the Research page filters).
 - **Astro Content Layer API** for typed Markdown collections
 - **Vanilla CSS** with custom properties for design tokens (no Tailwind/Bootstrap)
 - **@astrojs/sitemap** for `sitemap-index.xml`
-- **@astrojs/rss** for the `/rss.xml` news feed
 
 ## Project structure
 
@@ -26,24 +25,22 @@ src/
   assets/images/               # source images — imported via astro:assets for optimization
   components/                  # Navbar, Footer, cards, Button, Tag, Breadcrumbs, etc.
   content/
-    publications/*.md
     writing/*.md
     courses/*.md
     news/*.md
-    projects/*.md
-  content.config.ts            # Zod schemas for the 5 collections above
+  content.config.ts            # Zod schemas for the collections above
   data/
     site.ts                    # site title, nav links, social links, research areas
-    cv.ts                      # structured CV sections that aren't collections
   layouts/BaseLayout.astro     # <head>, meta/OG/Twitter tags, JSON-LD, skip link
   pages/                       # one file per route (see below)
   styles/global.css            # design tokens, reset, typography, utility classes
   utils/                       # dates.ts, labels.ts, semester.ts
 ```
 
-Routes: `/`, `/research/` (+ `/research/[slug]/`), `/teaching/` (+ `/teaching/[slug]/`),
-`/writing/` (+ `/writing/[slug]/`), `/news/` (+ `/news/[slug]/`), `/projects/`,
-`/cv/`, `/contact/`, `/rss.xml`, `/404`.
+Routes: `/` (bio + news list), `/teaching/`,
+`/writing/` (+ `/writing/[slug]/`), `/contact/`, `/404`. Research links out to
+Google Scholar and CV links straight to the PDF; `/research/`, `/cv/` and `/news/`
+redirect (see `astro.config.mjs`).
 
 ## Getting started
 
@@ -66,41 +63,18 @@ Markdown body. Add a new file, fill in the frontmatter fields below, and the
 corresponding index/detail pages pick it up automatically — no page code
 changes needed.
 
-**Publication** (`src/content/publications/my-new-paper.md`):
-
-```md
----
-title: "My New Paper"
-authors: ["Zachary Sedefian"]
-type: peer-reviewed-article # | working-paper | conference-paper | book-review
-journal: "Journal Name"      # or `venue:` for conference papers
-year: 2027
-status: forthcoming          # | published | in-preparation | under-review
-abstract: "One-paragraph abstract."
-doi: "10.xxxx/xxxxx"          # optional
-tags: ["topic one", "topic two"]
-featured: true                # shows on the home page
-citation: "Full citation string."
----
-
-Optional long-form body content rendered below the abstract.
-```
-
 **Writing** (`src/content/writing/my-article.md`): `title`, `category`
 (`academic` | `journalism` | `essay` | `book-review` | `interview`),
 `publication`, `date`, `status` (`published` | `forthcoming`), `excerpt`,
 `link` (optional external URL), `tags`, `featured`.
 
 **Course** (`src/content/courses/my-course.md`): `courseNumber`, `title`,
-`institution`, `semester` (e.g. `"Fall 2026"` — used for sorting), `role`,
-`description`, `syllabus` (optional link), `readings` (optional array).
+`institution`, `semester` (e.g. `"Fall 2026"` — used for sorting), and
+`syllabus` (optional link to a PDF in `public/syllabi/`).
 
-**News** (`src/content/news/my-update.md`): `title`, `date`, `summary`,
-`link` (optional), `tags`. News items automatically appear in `/rss.xml`.
-
-**Project** (`src/content/projects/my-project.md`): `title`, `category`
-(`research` | `book` | `presentation` | `dataset`), `status` (optional),
-`date` (optional), `description`, `link` (optional), `featured`.
+**News** (`src/content/news/my-update.md`): `date` in frontmatter, and a
+single sentence as the Markdown body (links and italics allowed). All news
+items are listed on the home page.
 
 All frontmatter is validated against the Zod schemas in
 [`src/content.config.ts`](src/content.config.ts) — `npm run build` will fail
@@ -111,9 +85,8 @@ loudly if a required field is missing or misspelled.
 - **Site metadata, nav, social links:** [`src/data/site.ts`](src/data/site.ts).
   Several `SOCIAL_LINKS` entries are placeholder URLs (`.../TODO`) — replace
   them with real profile URLs when accounts are confirmed.
-- **CV page content:** [`src/data/cv.ts`](src/data/cv.ts) (education, honors,
-  languages, professional experience). The downloadable PDF itself is
-  `public/cv/zachary-sedefian-cv.pdf` — replace that file directly to update it.
+- **CV:** replace `public/cv/zachary-sedefian-cv.pdf` directly to update it.
+- **Google Scholar link:** `SCHOLAR_URL` in `src/data/site.ts`.
 - **Colors, fonts, spacing:** CSS custom properties at the top of
   [`src/styles/global.css`](src/styles/global.css).
 - **Portrait photo:** `src/assets/images/`. Images here are imported through
