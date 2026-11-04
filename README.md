@@ -18,7 +18,7 @@ enhancement (the Research page filters).
 
 ```text
 public/
-  cv/zachary-sedefian-cv.pdf   # downloadable CV (binary — replace directly)
+  cv/zachary-sedefian-cv.pdf   # downloadable CV, built from cv/zachary-sedefian-cv.tex
   robots.txt
   CNAME                        # GitHub Pages custom-domain file
 src/
@@ -85,7 +85,12 @@ loudly if a required field is missing or misspelled.
 - **Site metadata, nav, social links:** [`src/data/site.ts`](src/data/site.ts).
   Several `SOCIAL_LINKS` entries are placeholder URLs (`.../TODO`) — replace
   them with real profile URLs when accounts are confirmed.
-- **CV:** replace `public/cv/zachary-sedefian-cv.pdf` directly to update it.
+- **CV:** edit [`cv/zachary-sedefian-cv.tex`](cv/zachary-sedefian-cv.tex), then
+  rebuild and publish the PDF (requires LaTeX):
+
+  ```bash
+  latexmk -cd -pdf -outdir=build cv/zachary-sedefian-cv.tex && cp cv/build/zachary-sedefian-cv.pdf public/cv/zachary-sedefian-cv.pdf
+  ```
 - **Google Scholar link:** `SCHOLAR_URL` in `src/data/site.ts`.
 - **Colors, fonts, spacing:** CSS custom properties at the top of
   [`src/styles/global.css`](src/styles/global.css).

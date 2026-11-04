@@ -1,0 +1,185 @@
+% Curriculum vitae of Zachary Sedefian.
+%
+% Build from the repository root, then publish to the site:
+%   latexmk -cd -pdf -outdir=build cv/zachary-sedefian-cv.tex
+%   cp cv/build/zachary-sedefian-cv.pdf public/cv/zachary-sedefian-cv.pdf
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{XCharter}
+\usepackage[hmargin=1in,vmargin=0.85in]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\definecolor{linkblue}{RGB}{0,51,153}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkblue,
+  linkcolor=black,
+  pdftitle={Zachary Sedefian --- Curriculum Vitae},
+  pdfauthor={Zachary Sedefian},
+}
+\urlstyle{same}
+
+% Left-aligned text keeps word spacing even; long titles and DOIs would
+% otherwise stretch justified lines.
+\AtBeginDocument{\raggedright}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\titleformat{\section}{\normalfont\bfseries\large}{}{0pt}{}[\vspace{1pt}\titlerule]
+\titlespacing*{\section}{0pt}{12pt}{5pt}
+
+% Fill each page: don't favor breaking before a section or list, which leaves
+% large gaps at the bottom. An entry's title stays with its first bullet.
+\makeatletter
+\@secpenalty=0
+\makeatother
+\widowpenalty=10000
+\clubpenalty=10000
+\setlist[itemize]{leftmargin=1.3em, topsep=2pt, itemsep=1pt, parsep=0pt, partopsep=0pt,
+  beginpenalty=10000, midpenalty=0, endpenalty=0}
+
+% \entry{title}{date}{place}: a role or degree with its place on the next line.
+\newcommand{\entry}[3]{%
+  \par{\bfseries #1}\hfill #2\par\nopagebreak
+  {\itshape #3}\par\nopagebreak
+}
+% \oneline{title}{date}: a single-line entry.
+\newcommand{\oneline}[2]{\par #1\hfill #2\par}
+% A citation-style paragraph with a hanging indent.
+\newcommand{\hang}[1]{%
+  \par\hangindent=1.5em\hangafter=1 #1\par\vspace{5pt}%
+}
+\newcommand{\gap}{\par\vspace{7pt}}
+
+\pagestyle{plain}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries Zachary Sedefian}\par\vspace{4pt}
+  New York, USA \enspace|\enspace \href{mailto:zbsedefian@gmail.com}{zbsedefian@gmail.com}
+\end{center}
+
+\section*{Education}
+
+\entry{M.A. Political Science, \textit{Brooklyn College, CUNY}}{June 2026}{Specialization: International Affairs and Global Justice}
+\gap
+\par{\bfseries B.A. Computer Science, \textit{University at Albany, SUNY}}\hfill 2018\par
+\vspace{3pt}
+\par{\bfseries B.A. Linguistics and B.A. Anthropology, \textit{University at Albany, SUNY}}\hfill 2014\par
+
+\section*{Research \& Publications}
+
+\hang{Sedefian, Zachary. “Killing Data: Military AI in the Russo–Ukrainian War and its Implications for 21st-Century Imperialism.” \textit{Socialism and Democracy}, published online November 2, 2026. \url{https://doi.org/10.1080/08854300.2026.2744442}}
+
+\hang{Sedefian, Zachary. “Platform Labor as Economic Imperialism: Unequal Exchange and the Challenge of Chinese Digital Sovereignty.” \textit{Journal of Labor and Society} 29, no. 3 (2026): 351–384. \url{https://doi.org/10.1163/24714607-bja10227}}
+
+\hang{Research Interests: International and comparative political economy; economic imperialism; science and technology; digital and gig economy; artificial intelligence.}
+
+\section*{Conference Presentations}
+
+\hang{Sedefian, Zachary (2026, March). “Peripheralizing the Service Economy: Digital Platforms and the Virtual Mobility Fix.” Union for Radical Political Economics, 68th World Social Science Association Conference.}
+
+\hang{Sedefian, Zachary (2026, January). “Online Labor Platforms as Economic Imperialism: Unequal Exchange in the International Digital Economy.” Unequal Exchange in the 21st Century: A Conference on the Political Economy of Imperialism, International Institute of Social History, Amsterdam.}
+
+\hang{Sedefian, Zachary (2025, November). “Crowdsourcing as Economic Imperialism.” APPEAL / LPE Collective, John Jay College.}
+
+\section*{Editorial \& Peer Review Activities}
+
+\entry{Associate Editor}{2026–present}{Journal of Labor and Society}
+\gap
+\entry{Peer Reviewer}{2026}{Journal of Labor and Society}
+\begin{itemize}
+  \item Completed three anonymous peer reviews for manuscripts submitted to the journal
+\end{itemize}
+
+\section*{Teaching Experience}
+
+\entry{Adjunct Lecturer, POLS 1002: Introduction to Global Politics}{Fall 2026}{Brooklyn College, CUNY}
+\begin{itemize}
+  \item Instructor of record for an introductory course on global politics
+  \item Designed lectures, assignments, and course materials covering major theories of international politics, global inequality, and contemporary global issues
+\end{itemize}
+\gap
+\entry{Foreign English Instructor, K to 4th Grade}{2014–2015}{Youfuxijie Primary School, Nanjing, China}
+
+\section*{Journalistic Publications}
+
+\hang{Sedefian, Zachary. “CIA Sees Ukrainian Paramilitary Fighters the Way They Saw Right-Wing Cubans in 1959—as Ripe Fodder for U.S. Empire’s Dirty Work Across the Globe.” \textit{CovertAction Magazine}, September 1, 2026.}
+
+\hang{Sedefian, Zachary. “Neo-Nazi-Led Units Earn ‘E-Points’ for Kill Videos that Train a CIA-Seeded AI Weapons Lab.” \textit{CovertAction Magazine}, August 12, 2026.}
+
+\section*{Analytical \& Technical Skills}
+
+\begin{itemize}
+  \item Data visualization for academic publication: created all figures and graphs for Ness (2026), \textit{Dialectics of Chinese Labor}
+  \item Data analysis and visualization: R, Python, Excel, Adobe Photoshop, Adobe Illustrator
+  \item Data organization and database management: SQL, NoSQL
+  \item Software engineering: Java, AWS, JavaScript, etc.
+  \item Qualitative and comparative-historical analysis
+  \item Ethnographic and interview-based research methods
+  \item Technical writing and structured analytical reporting
+  \item Experience producing policy briefs, presentations, and research summaries for mixed audiences
+  \item Graduate courses in Global Governance, Modern International Politics, Comparative Politics, Human Rights in Theory and Practice, Global North-South Relations, U.S. Foreign Policy
+\end{itemize}
+
+\section*{Additional Research \& Analytical Experience}
+
+\entry{Language Documentation Project}{2014}{University at Albany, SUNY}
+\begin{itemize}
+  \item Conducted field data collection and developed a structured linguistic database
+  \item Organized qualitative data for long-term research use and accessibility
+\end{itemize}
+\gap
+\entry{Anthropological Fieldwork}{2013}{University at Albany, SUNY}
+\begin{itemize}
+  \item Conducted independent ethnographic research using interview-based methods
+  \item Synthesized qualitative findings into structured analytical outputs
+\end{itemize}
+
+\section*{Languages}
+
+\begin{tabular}{@{}ll@{}}
+  English & Native \\
+  Spanish & Fluent / Advanced \\
+  Chinese (Mandarin) & Intermediate \\
+  Portuguese & Reading proficiency only \\
+  French & Reading proficiency only \\
+\end{tabular}
+
+\section*{Professional Experience}
+
+\entry{Senior Software Engineer}{2023–2024}{Paychex, Rochester, NY}
+\begin{itemize}
+  \item Developed and maintained large-scale data systems supporting payroll and workforce analytics
+  \item Translated complex data outputs into structured formats for internal reporting and decision-making
+\end{itemize}
+\gap
+\entry{Software Engineer}{2020–2023}{Ford Autonomous Vehicle, Detroit, MI}
+\begin{itemize}
+  \item Worked with large datasets and real-time systems requiring precision, documentation, and cross-team coordination
+  \item Contributed to system-level analysis and technical reporting in a high-stakes operational environment
+\end{itemize}
+\gap
+\entry{Associate Software Engineer}{2018–2020}{AutoMate Dealership Systems, Albany, NY}
+\begin{itemize}
+  \item Supported development and maintenance of enterprise software systems
+  \item Assisted in data handling, system documentation, and structured problem-solving workflows
+\end{itemize}
+
+\section*{Selected Honors and Awards}
+
+\oneline{Graduate Political Science Award}{2026}
+\oneline{Most Outstanding Graduating Senior in Linguistics (Francine Frank Award)}{2014}
+\oneline{Presidential Undergraduate Award for Research}{2014}
+\oneline{Magna Cum Laude}{2014}
+\oneline{Dean’s List}{2011–2014, 2018}
+
+\end{document}
